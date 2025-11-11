@@ -220,14 +220,26 @@
       });
     }
 
-    // Click to toggle submenus (event delegation)
-    sidebar?.addEventListener('click', (e) => {
-      const btn = e.target.closest('.menu-link');
-      if (!btn || btn.tagName === 'A') return; // allow normal links
-      const li = btn.closest('.menu-item');
-      if (!li) return;
+   document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.querySelector('.menu-toggle');
+  const sidebar = document.getElementById('primary-nav');
 
-      const isOpen = li.classList.contains('open');
+  // Open/close main menu
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
+  // Open/close submenus on tap/click
+  document.querySelectorAll('.menu-item.has-sub > .menu-link').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const parent = btn.parentElement;
+      parent.classList.toggle('open');
+    });
+  });
+});
+
+    
 
       // Close siblings
       li.parentElement.querySelectorAll('.menu-item.open').forEach(sib => {
