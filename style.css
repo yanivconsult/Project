@@ -288,40 +288,76 @@ a{ color:inherit; }
   .right{ grid-column:2; position: sticky; top: 84px; }
 }
 
-/* =====================
-   Responsive
-===================== */
+/* ---------- MOBILE NAV FIX ---------- */
 @media (max-width: 900px){
-  .menu-toggle{ display:block; }
-  .sidebar{ 
-    display:block; 
-    max-height:0; 
-    overflow:hidden; 
-  }
-  .sidebar.open{ 
-    max-height: 80vh; 
-    overflow:auto; 
-  }
-  .side-menu{ flex-direction:column; align-items:stretch; white-space:normal; }
-  .menu-item{ width:100%; }
-  .menu-link{ width:100%; border-radius: var(--radius); }
-  .menu-item.has-sub > .submenu{
-    position:relative; top:0; left:0; min-width:0;
-    display:none; box-shadow:none; border-radius:10px; margin-top:8px; padding:8px;
-  }
-  .menu-item.open > .submenu{ display:grid; gap:6px; }
-  .menu-item.has-sub::before{ display:none; }
 
-  .right{ position: static; top: auto; }
+  /* Show toggle button */
+  .menu-toggle{
+    display:block;
+  }
+
+  /* Sidebar becomes vertical panel */
+  .sidebar{
+    display:block;
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .35s ease;
+    background: var(--brand);
+    padding:0;
+    border-radius: 10px;
+  }
+
+  /* When open */
+  .sidebar.open{
+    max-height: 90vh;
+    overflow:auto;
+    padding:10px 0;
+  }
+
+  /* Vertical menu list */
+  .side-menu{
+    flex-direction:column;
+    padding:0 10px;
+    width:100%;
+  }
+
+  .menu-item{
+    width:100%;
+  }
+
+  /* Button full width */
+  .menu-link{
+    width:100%;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.2);
+    margin-bottom:6px;
+  }
+
+  /* Submenu stays under parent and fully visible */
+  .submenu{
+    position:relative !important;
+    display:none !important;
+    background:rgba(255,255,255,0.12);
+    border-radius:10px;
+    margin:6px 0 12px;
+    padding:8px;
+  }
+
+  /* When open */
+  .menu-item.open > .submenu{
+    display:block !important;
+  }
+
+  .submenu-link{
+    color:#fff !important;
+    border-radius:8px;
+    padding:10px;
+    display:block;
+  }
 }
 
-/* Tiny phones fixes */
-@media (max-width: 360px){
-  .menu-link{ padding:10px 12px; gap:8px; font-size:14px; }
-  .submenu-link{ padding:10px 12px; font-size:14px; }
-}
-
-/* Motion preference */
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{ animation:none !important; transition:none !important; }
+/* Fix very small phones */
+@media (max-width:400px){
+  .menu-link{ font-size:14px; }
+  .submenu-link{ font-size:14px; }
 }
