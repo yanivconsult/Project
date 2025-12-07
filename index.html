@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Service Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --primary: #0055a5;
+      --primary-dark: #003d76;
+      --accent: #ff9800;
+      --text: #222;
+      --muted: #777;
+      --card-bg: #ffffff;
+      --border-radius: 12px;
+      --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =====================
+       Header + Top Bar
+    ====================== */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 0.5rem 1rem;
+    }
+
+    .top-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .top-bar span {
+      opacity: 0.9;
+    }
+
+    .top-bar .top-links a {
+      margin-left: 1rem;
+      opacity: 0.9;
+    }
+
+    /* =====================
+       Navigation
+    ====================== */
+    nav {
+      background: #ffffff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ffd54f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .menu > li {
+      position: relative;
+    }
+
+    .menu > li > a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+    }
+
+    .menu > li > a:hover {
+      background: rgba(0, 85, 165, 0.08);
+    }
+
+    .menu > li > a span.icon {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      min-width: 180px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+      padding: 0.4rem 0;
+      display: none;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.92rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .dropdown a:hover {
+      background: var(--bg);
+      color: var(--primary-dark);
+    }
+
+    /* Show dropdown on hover (desktop) */
+    .menu > li:hover > .dropdown {
+      display: block;
+    }
+
+    /* Call to action button */
+    .nav-cta {
+      margin-left: 1rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-cta:hover {
+      filter: brightness(1.05);
+    }
+
+    /* Hamburger (mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+
+    .hamburger span {
+      width: 20px;
+      height: 2px;
+      background: var(--primary-dark);
+      border-radius: 999px;
+    }
+
+    /* =====================
+       Hero Section
+    ====================== */
+    .hero {
+      max-width: 1200px;
+      margin: 1.5rem auto 0.5rem;
+      padding: 1rem;
+    }
+
+    .hero-inner {
+      background: linear-gradient(135deg, #ffffff, #e3f2fd);
+      border-radius: 18px;
+      padding: 1.5rem 1.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      gap: 1rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
+    }
+
+    .hero p {
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-badge {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0, 85, 165, 0.06);
+      color: var(--primary-dark);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      border-radius: 999px;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary-dark);
+      padding: 0.5rem 1.1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .hero-stats {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .hero-card h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
+    }
+
+    .hero-card ul {
+      list-style: none;
+      margin: 0.4rem 0 0.8rem;
+      padding-left: 1rem;
+    }
+
+    .hero-card ul li::before {
+      content: "✔";
+      margin-right: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .hero-card ul li {
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* =====================
+       Layout (Content + Sidebar)
+    ====================== */
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto 1.5rem;
+      padding: 0 1rem 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+      gap: 1.25rem;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card ul li {
+      margin-bottom: 0.2rem;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .sidebar-card {
+      background: #ffffff;
+      border-radius: var(--border-radius);
+      padding: 0.8rem 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: var(--primary-dark);
+    }
+
+    .sidebar-banner {
+      border-radius: var(--border-radius);
+      border: 1px dashed var(--accent);
+      padding: 0.7rem;
+      text-align: center;
+      font-size: 0.85rem;
+      background: #fffaf0;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .social-links a {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: var(--bg);
+      color: var(--primary-dark);
+    }
+
+    /* =====================
+       Footer
+    ====================== */
+    footer {
+      background: #ffffff;
+      padding: 0.9rem 1rem;
+      border-top: 1px solid #e3e4ee;
+      font-size: 0.8rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      color: var(--muted);
+    }
+
+    .footer-inner a {
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+
+    /* =====================
+       RESPONSIVE
+    ====================== */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .nav-container {
+        align-items: center;
+      }
+
+      .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: #ffffff;
+        padding: 0.5rem 0.7rem 0.8rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        display: none; /* hidden by default */
+      }
+
+      .menu.open {
+        display: flex;
+      }
+
+      .menu > li {
+        width: 100%;
+      }
+
+      .menu > li > a {
+        width: 100%;
+        border-radius: 8px;
+        padding: 0.55rem 0.6rem;
+        justify-content: space-between;
+      }
+
+      /* On mobile we don't use hover dropdown; we toggle it with JS */
+      .menu > li:hover > .dropdown {
+        display: none;
+      }
+
+      .dropdown {
+        position: static;
+        box-shadow: none;
+        border-radius: 8px;
+        padding: 0.1rem 0 0.3rem;
+        margin-top: 0.2rem;
+        border-left: 2px solid rgba(0, 85, 165, 0.15);
+        display: none; /* toggle with JS */
+      }
+
+      .dropdown.open {
+        display: block;
+      }
+
+      .dropdown a {
+        padding: 0.3rem 1.1rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-cta {
+        display: none; /* hide or keep as per your need */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+
+      .hero-inner {
+        padding: 1.1rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top contact bar -->
+  <header>
+    <div class="top-bar">
+      <span>📞 +91-XXXXXXXXXX &nbsp; | &nbsp; ✉ support@example.com</span>
+      <div class="top-links">
+        <a href="#">Help</a>
+        <a href="#">Support</a>
+        <a href="#">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-mark">PK</div>
+        <div>Digital Services</div>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="menu" id="menu">
+        <!-- Information -->
+        <li class="has-dropdown">
+          <a href="#">
+            Information
+            <span class="icon">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#">B2C</a>
+            <a href="#">G2C</a>
+          </div>
+        </li>
+
+        <!-- Support -->
+        <li class="has-dropdown">
+          <a href="#">
+            Support
+            <span class="icon">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#">G2B</a>
+          </div>
+        </li>
+
+        <!-- Services -->
+        <li class="has-dropdown">
+          <a href="#">
+            Services
+            <span class="icon">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#">Certificates</a>
+            <a href="#">B2B</a>
+            <a href="#">GeM</a>
+            <a href="#">Railways</a>
+            <a href="#">Others</a>
+          </div>
+        </li>
+
+        <!-- Pricing -->
+        <li class="has-dropdown">
+          <a href="#">
+            Pricing
+            <span class="icon">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#">Plans</a>
+            <a href="#">Package</a>
+          </div>
+        </li>
+
+        <!-- Company -->
+        <li class="has-dropdown">
+          <a href="#">
+            Company
+            <span class="icon">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#">About Us</a>
+            <a href="#">Blogs</a>
+            <a href="#">News</a>
+          </div>
+        </li>
+      </ul>
+
+      <button class="nav-cta">
+        Get Quote
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>One Stop Center for Online Government & Business Services</h1>
+        <p>
+          Provide hassle-free digital services like certificates, registrations, ticketing,
+          and more for your customers. Manage everything from one place.
+        </p>
+
+        <div class="hero-highlights">
+          <span class="hero-badge">✔ Fast processing</span>
+          <span class="hero-badge">✔ Secure & transparent</span>
+          <span class="hero-badge">✔ Ideal for CSC / kiosk</span>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn-primary">View Services</button>
+          <button class="btn-outline">Download Brochure</button>
+        </div>
+
+        <div class="hero-stats">
+          Trusted by kiosk owners, CSC operators, and consultants.
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Important Updates</h2>
+        <ul>
+          <li>New railway ticketing guidelines updated.</li>
+          <li>PAN & GST related service timings revised.</li>
+          <li>Special discounts for new center registration.</li>
+        </ul>
+        <p class="hero-note">
+          Note: Replace this content with your real announcements or notifications.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Layout -->
+  <main class="layout">
+    <!-- Main Content -->
+    <section class="content">
+      <article class="card">
+        <h3>Information (B2C / G2C)</h3>
+        <p>Provide information and support for citizen-centric services.</p>
+        <ul>
+          <li>Aadhaar / PAN assistance</li>
+          <li>Mobile / utility bill support</li>
+          <li>Govt scheme guidance</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Support (G2B)</h3>
+        <p>Help businesses with government-related registrations and compliances.</p>
+        <ul>
+          <li>MSME / Udyam registration</li>
+          <li>GST registration support</li>
+          <li>License & permit guidance</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Services (Certificates / B2B / GeM / Railways)</h3>
+        <p>Offer multiple fee-based services from one counter.</p>
+        <ul>
+          <li>Income, caste, residence certificates</li>
+          <li>B2B documentation and filing</li>
+          <li>GeM portal related help</li>
+          <li>Railway ticket booking support</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Pricing & Packages</h3>
+        <p>Customize your service charges and packages as per your area.</p>
+        <ul>
+          <li>Monthly / yearly packages</li>
+          <li>Per-service charge configuration</li>
+          <li>Special discount for regular customers</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-banner">
+        <strong>Advertisement Area</strong>
+        <p style="margin-top:0.2rem;">
+          300 x 250 – Place your banner here for offers, new services, or partner ads.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Social Media</h4>
+        <p>Connect with us for latest updates:</p>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">Instagram</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Download Forms</a></li>
+          <li><a href="#">Service Charges List</a></li>
+          <li><a href="#">Holiday Calendar</a></li>
+          <li><a href="#">Support Ticket</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-banner">
+        <strong>Your Center Details</strong>
+        <p style="margin-top:0.2rem;">
+          Add your address, GST, registration no., etc. here.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Your Center Name. All rights reserved.</span>
+      <div>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Simple JS for mobile menu + dropdowns -->
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+
+    hamburger.addEventListener("click", function () {
+      menu.classList.toggle("open");
+    });
+
+    // Handle mobile dropdown toggles
+    const hasDropdownItems = document.querySelectorAll(".has-dropdown > a");
+
+    hasDropdownItems.forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        // Only apply toggle behaviour on small screens
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const dropdown = link.nextElementSibling;
+          dropdown.classList.toggle("open");
+        }
+      });
+    });
+
+    // Close mobile menu if window resized to desktop
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 768) {
+        menu.classList.remove("open");
+        document
+          .querySelectorAll(".dropdown.open")
+          .forEach((dd) => dd.classList.remove("open"));
+      }
+    });
+  </script>
+</body>
+</html>
